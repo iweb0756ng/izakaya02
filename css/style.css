@@ -1,0 +1,939 @@
+@charset "utf-8";
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 横スクロールバーを隠す */
+}
+
+.area{
+    overflow: hidden;
+}
+
+.wrap{
+    display: flex;
+}   
+
+.item{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.item08 {
+    background-color: wheat;
+}
+
+
+/* 共通設定---------------------------------------------------------------------------- */
+/*Font Awesomeの読み込み
+---------------------------------------------------------------------------*/
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");
+
+/*Google Fontsの読み込み
+---------------------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&display=swap');
+
+
+/*slick.cssの読み込み
+---------------------------------------------------------------------------*/
+@import url("https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css");
+
+/*テンプレート専用cssファイルの読み込み
+---------------------------------------------------------------------------*/
+@import url("slide.css");
+@import url("inview.css");
+
+
+/*CSSカスタムプロパティ（サイト全体を一括管理する為の設定）
+---------------------------------------------------------------------------*/
+:root {
+
+	/*テンプレートのメインまたはアクセントとなる色*/
+	--primary-color: #3A4A55;
+	
+	/*上のprimary-colorの対となる色*/
+	--primary-inverse-color: #FAF8F5;
+	
+	/*サイト内の左右へとる余白を一括管理しています。画面幅100%＝100vwです。*/
+	--global-space: 5vw;
+
+	--border-color1-maru: rgba(255,255,255,0.3) !important;	/*Q19用*/
+}
+
+
+/*animation1のキーフレーム設定（開閉ブロックのアニメーションに使用）
+---------------------------------------------------------------------------*/
+@keyframes animation1 {
+	0% {left: -200px;}
+	100% {left: 0px;}
+}
+
+
+/*opa1のキーフレーム設定（汎用的）
+---------------------------------------------------------------------------*/
+@keyframes opa1 {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+
+/*全体の設定
+---------------------------------------------------------------------------*/
+body * {box-sizing: border-box;}
+html,body {
+	font-size: 13px;	/*基準となるフォントサイズ。*/
+}
+
+	/*画面幅900px以上の追加指定*/
+	@media screen and (min-width:900px) {
+
+	html, body {
+		font-size: 16px;	/*基準となるフォントサイズ。*/
+	}
+
+	}/*追加指定ここまで*/
+
+
+body {
+	margin: 0;padding:0;
+	font-family: "Noto Serif JP", "ヒラギノ丸ゴ Pro", "Hiragino Maru Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; /*フォント種類*/	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	-webkit-text-size-adjust: none;
+	/* background: #FAF8F5;	背景色 */
+	color: #3A4A55;		/*文字色*/
+	background-color: #FAF8F5;
+	line-height: 2;		/*行間*/
+}
+
+/*リセット*/
+figure {margin: 0;}
+dd {margin: 0;}
+nav,ul,li,ol {margin: 0;padding: 0;}
+nav ul {list-style: none;}
+section li {margin-left: 1rem;}
+input {font-size: 1rem;}
+
+/*table全般の設定*/
+table {border-collapse:collapse;}
+
+/*画像全般の設定*/
+img {border: none;max-width: 100%;height: auto;vertical-align: middle;}
+
+/*videoタグ
+video {max-width: 100%;}*/
+
+/*iframeタグ*/
+iframe {width: 100%;}
+
+/*sectionが続く場合*/
+section + section {
+	margin-top: var(--global-space);	/*sectionの上に空けるスペース。css冒頭で指定しているglobal-spaceを読み込みます*/
+}
+
+
+/*mainブロック（横スライドslick対策）*/
+main * {min-width: 0;}
+
+/*mainブロック*/
+main {
+	margin: var(--global-space);	/*mainの外側に空けるスペース。css冒頭で指定しているglobal-spaceを読み込みます*/
+}
+
+/*h2見出し*/
+main h2 {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 0 2rem;		/*h2の外側にとるスペース。上、左右、下への順番。*/
+	font-size: 1.5rem;		/*文字サイズ*/
+	position: relative;		/*ulineを配置する為に必要な指定*/
+	font-weight: normal;	/*デフォルトの太字を標準に*/
+	border-bottom: 2px solid #ddd;	/*薄い色の線の幅、線種、色*/
+	letter-spacing: 0.1em;	/*文字間隔を少しだけ広くする*/
+}
+
+/*h2のアクセントラインの設定*/
+main h2 .uline {
+	display: inline-block;position: relative;
+	padding: 0.5rem 0;	/*h2内の余白。上下、左右への順番。*/
+	bottom: -2px;		/*濃い線を薄い線に重ねる為の指定。枠線の幅と合わせます。*/
+	border-bottom: 2px solid var(--primary-color);	/*濃い色の線の幅、線種、varは色の事でcss冒頭で指定しているprimary-colorを読み込みます*/
+}
+
+/*右側の装飾文字の設定*/
+main h2 .small {
+	font-size: 0.6em;	/*文字サイズを親要素の60%に*/
+	opacity: 0.7;		/*透明度。色が70%出た状態。*/
+}
+
+/*h3見出し*/
+main h3 {
+	font-size: 1.3rem;		/*文字サイズ*/
+	letter-spacing: 0.1em;	/*文字間隔を少しだけ広くする*/
+	font-weight: normal;	/*デフォルトの太字を標準に*/
+}
+
+/*h3見出し（menu.htmlの「その他のメニュー」での背景色付きの見出しに使用）*/
+main h3.type2 {
+	background: var(--primary-color);	/*背景色。css冒頭で指定しているprimary-colorを読み込みます*/
+	color: var(--primary-inverse-color);	/*文字色。css冒頭で指定しているprimary-inverse-colorを読み込みます*/
+	font-size: 1rem;	/*文字サイズ*/
+	text-align: center;	/*テキストをセンタリング*/
+	border-radius: 5px;	/*角を少し丸くする指定*/
+}
+
+
+/*リンク（全般）設定
+---------------------------------------------------------------------------*/
+a {
+	color: #fff;		/*リンクテキストの色*/
+	transition: 0.3s;	/*マウスオン時の移り変わるまでの時間設定。0.3秒。*/
+}
+a:hover {
+	color: var(--primary-color);	/*文字色。css冒頭で指定しているprimary-colorを読み込みます*/
+}
+
+
+
+/* firstView ------------------------------------------------------------------------------*/
+/*動画*/
+header video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+	object-fit: cover;
+}
+
+
+
+/*ロゴ画像*/
+#logo {margin: 0;padding: 0;}
+#logo img {
+	display: block;
+	width: 100px;	/*ロゴ画像の幅*/   
+}
+
+/*トップページのロゴ*/
+.home #logo img {
+	width: 30vw;	/*ロゴ画像の幅。画面幅100%=100vwです。*/
+	position: absolute;z-index: 1;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+/*画面幅900px以上の追加指定*/
+@media screen and (max-width:600px) {
+	.home #logo img {
+		width: 100vw;	/*ロゴ画像の幅。画面幅100%=100vwです。*/
+	}
+}
+
+
+/* about------------------------------------------------------------------------------ */
+/* Aboutセクション 縦書きスタイル */
+#about {
+	background-color: #FAF8F5;
+	font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+}
+
+#about .about-content {
+    padding: 20px; /* 全体の余白を調整 */
+    margin: 100px auto; /* センター配置 */
+    writing-mode: vertical-rl; /* 縦書き方向 */
+    text-orientation: upright; /* 縦書きで文字を縦に表示 */
+    background-color: #f8f4ee; /* 和風な背景色 */
+    border: 1px solid #d4c4a8; /* 和風っぽい枠線 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加して立体感を出す */
+}
+
+#about h2 {
+    font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+    color: #3A4A55; /* 文字色を設定 */
+    text-align: center; /* 中央揃え */
+    font-size: 1.8rem; /* フォントサイズを設定 */
+    margin-bottom: 20px; /* 下部に余白を追加 */
+}
+
+#about .main-text {
+    font-weight: bold; /* 太字にする */
+}
+
+#about p {
+    color: #3A4A55; /* 文字色を設定 */
+    margin-bottom: 10px; /* 各段落の間に適度な余白を追加 */
+    font-size: 1.5dvw;
+
+}
+
+#about .highlight {
+    color: #9C614D; /* 文字色を設定 */
+    font-weight: bold; /* 太字にする */
+}
+
+#about .invitation {
+    display: block; /* ブロック要素にする */
+    margin-top: 20px; /* 上部に余白を追加 */
+    font-size: 1.2em; /* フォントサイズを設定 */
+    font-weight: bold; /* 太字にする */
+    color: #D8B08C; /* 文字色を設定 */
+    text-align: center; /* 中央揃え */
+}
+
+/* スマートフォン向けの縦書き調整 */
+@media screen and (max-width: 600px) {
+    #aboutv.about-content {
+        width: 50px; /* スマホ向けにさらに幅を狭く */
+    }
+    #about p {
+        font-size: 1em; /* フォントサイズを少し小さめに */
+        line-height: 1.6rem; /* 行間を調整 */
+    }
+}
+
+/*Menuセクション---------------------------------------------------------------------------*/
+#menu {
+	font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+}
+
+#menu > a {
+    text-decoration: none;
+    display: block;
+}
+
+
+	/*画面幅600px以上の追加指定*/
+	@media screen and (min-width:600px) {
+	
+		/*２つのボックスを囲むボックス*/
+		#menu .flex_cencel{
+			display: flex;	/*横並びにする*/
+			justify-content: center;
+		}
+
+	}/*追加指定ここまで*/
+
+
+/*ボックス１個あたり*/
+#menu .list-parts {
+	text-align: center;
+	position: relative;
+	overflow-y: hidden;
+	color: #fff;		/*文字色*/
+	padding: 5rem 2rem;	/*上下、左右へのボックス内の余白*/
+	margin: 1rem 0;		/*上下、左右へのマージン*/
+}
+
+	/*画面幅600px以上の追加指定*/
+	@media screen and (min-width:600px) {
+		#menu .list-parts {
+			margin: 0 auto;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40vw;
+		}
+		#menu > a .list-parts {
+			height: 100%;
+		}
+	}/*追加指定ここまで*/
+
+
+/*左側ボックスの背景*/
+#menu .list-parts.image1-parts {
+	background: url("../image/food/food1.JPG") no-repeat center center / cover;
+}
+/*右側ボックスの背景*/
+#menu .list-parts.image2-parts {
+	background: url("../image/drink/beer.JPG") no-repeat center center / cover;
+}
+
+/*h4見出し*/
+#menu h4 {
+	font-weight: 200;	/*細字にする*/
+	line-height: 1.2;	/*行間を狭く*/
+}
+
+/*h4見出し内のメインテキスト（main-text-parts）*/
+#menu h4 .main-text-parts {
+	display: block;
+	font-size: 3rem;		/*文字サイズ。3倍。*/
+	padding-top: 1.5rem;	/*上に空ける余白*/
+	padding-bottom: 3rem;	/*下に空ける余白*/
+}
+
+	/*画面幅600px以上の追加指定*/
+	@media screen and (min-width:600px) {
+
+		#menu h4 .main-text-parts {
+			font-size: 4rem;	/*文字サイズ。4倍。*/
+		}
+
+	}/*追加指定ここまで*/
+
+
+/*h4見出し内のサブテキスト（sub-text-parts）*/
+#menu h4 .sub-text-parts {
+	position: relative;
+	padding: 0 5rem;	/*上下、左右への余白設定ですが、両サイドのラインの配置にも影響します。お好みで。*/
+}
+/*h4見出し内のサブテキストの左右のライン*/
+.sub-text-parts::before {left: 0;}
+.sub-text-parts::after {right: 0;}
+#menu h4 .sub-text-parts::before,#menu h4 .sub-text-parts::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	width: 2rem;	/*線の長さ*/
+	border-top: 1px solid #fff;	/*ラインの幅、線種、色*/
+}
+
+/*見出しの下の説明テキスト*/
+#menu .list-parts .text-parts {
+	position: relative;z-index: 1;
+	font-size: 0.85rem;	/*文字サイズ85%*/
+}
+
+/*マウスオン用のアニメーション*/
+#menu .list-parts::before {
+	content: "";position: absolute;top: 0;left: 0;width: 100%;height: 100%;
+	background: rgba(0,0,0,0.6);		/*写真に重ねておく半透明の黒い色。0,0,0は黒のことで0.6は色が60%出た状態。*/
+	transition: transform 0.3s 0.1s;	/*アニメーションの速度（0.3秒）と待機時間（0.1秒）。*/
+}
+#menu .list-parts:hover::before {
+	transform: translateY(100%);	/*マウスオンで半透明の黒を枠外へ出す。-100%にすると逆に移動します。*/
+}
+	/*画面幅600px以下の追加指定*/
+	@media screen and (max-width:600px) {
+
+		/*マウスオン用のアニメーション*/
+		#menu .list-parts::before {
+			background: none;		/*写真に重ねておく半透明の黒い色。0,0,0は黒のことで0.6は色が60%出た状態。*/
+		}
+	
+	}/*追加指定ここまで*/
+
+
+/* 店舗情報セクション--------------------------------------------------------------------------- */
+#RestaurantInfo {
+	font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+}
+
+#RestaurantInfo h2 {
+    font-size: 2em; /* フォントサイズ */
+	color: #3A4A55; /* ベースカラー */
+    margin: 20px 0; /* 上下の余白を調整 */
+}
+/* h2内のspan要素のスタイル（オプション） */
+#RestaurantInfo h2 span {
+    margin: 0 10px; /* ハイフンの左右にスペースを追加 */
+    color: #9C614D; /* アクセントカラー */
+    font-weight: bold; /* 太字に設定 */
+}
+
+
+#RestaurantInfo .flex_cancel {
+	min-height: 20vh; /* 高さを確保 */
+}
+
+#RestaurantInfo .flex_cancel h2 {
+	text-align: center;
+}
+
+#RestaurantInfo .flex_container {
+	display: flex;
+}
+
+
+
+.info {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.info-item {
+	padding: 20px;
+}
+
+.info-item h3 {
+	font-size: 1.2em;
+	color: #9C614D; /* アクセントカラー */
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+.info-item p {
+	font-size: 1em;
+	color: #3A4A55; /* ベースカラー */
+	margin: 0;
+}
+
+.info-item p a:hover {
+	color: #9C614D; /* アクセントカラー */
+	text-decoration: underline; /* ホバー時に下線を表示 */
+}
+
+/* 電話番号リンクのスタイルを明示的に指定 */
+.info-item p a {
+	color: #3A4A55; /* ベースカラー */
+	text-decoration: none; /* 下線を削除 */
+}
+
+
+	/*画面幅600px以上の追加指定*/
+	@media screen and (min-width:600px) {
+		#RestaurantInfo_2 .moblie{
+			display: none;
+		}
+
+		.item05 {
+			display: none;
+		}
+	}/*追加指定ここまで*/
+
+
+
+	/*画面幅600px以下の追加指定*/
+	@media screen and (max-width:600px) {
+		#RestaurantInfo .moblie{
+			display: none;
+		}
+
+		/* 全体スタイル調整 */
+		#RestaurantInfo_2 {
+			font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+			font-size: 2em; /* フォントサイズ */
+			color: #3A4A55; /* ベースカラー */
+			text-align: center; /* 中央揃え */
+		}
+
+		/* 地図セクション */
+		#RestaurantInfo_2 .map_responsive {
+			margin: 10px auto; /* 上下余白を調整 */
+			width: 100%;
+			max-width: 100%; /* スマホで幅いっぱいに表示 */
+			aspect-ratio: 16 / 9; /* アスペクト比固定 */
+
+			overflow: hidden; /* はみ出し防止 */
+		}
+
+		#RestaurantInfo_2 .map_responsive iframe {
+			width: 100%;
+			height: 100%;
+			border: 2px solid #ddd; /* 薄い境界線 */
+			border-radius: 8px; /* 角を丸める */
+			border: none; /* 境界線を消す */
+		}
+
+		/* お席セクション */
+		#RestaurantInfo_2 .seat {
+			margin-top: 20px; /* 地図とお席の間に余白 */
+		}
+
+		#RestaurantInfo_2 .seat h2 {
+			font-size: 1.2em; /* 少し大きめのフォント */
+			color: #333; /* 見やすい濃いグレー */
+			margin-bottom: 15px; /* 見出しと画像間の余白 */
+			margin-top: -100px;
+		}
+
+		#RestaurantInfo_2 .seat a {
+			display: inline-block;
+			overflow: hidden;
+			width: calc(50% - 10px); /* 横に2列表示 */
+		}
+
+		#RestaurantInfo_2 .seat a img {
+			width: 60%;
+			height: auto; /* アスペクト比を維持 */
+			display: block;
+			margin: 0 auto;
+			border: 1px solid #ccc; /* 画像の枠線 */
+			border-radius: 8px; /* 画像の角を丸める */
+		}
+
+		#RestaurantInfo_2 {
+			padding: 10px;
+		}
+
+		#RestaurantInfo_2 .map_responsive {
+			width: 90%; /* 地図を画面幅の90%に調整 */
+			margin: 0 auto; /* 中央寄せ */
+		}
+
+		#RestaurantInfo_2 .seat a {
+			width: 100%; /* 1列表示 */
+			margin: 10px auto; /* 画像間に余白 */
+		}
+
+	}/*追加指定ここまで*/
+
+
+
+
+/*クーポン、予約セクション---------------------------------------------------------------------------*/
+/* 共通設定 */
+
+#reservation h2, h3{
+	text-align: center;
+    color: #3A4A55;
+    font-size: 2em;
+    margin-bottom: 30px;
+	font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+}
+
+/* クーポンと予約セクション */
+
+#reservation .info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+	width: 25vw;
+	font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+}
+
+#reservation .coupon {
+    background-color: #D8B08C; /* ポイントカラー */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#reservation .coupon h3 {
+    font-size: 1.5em;
+    color: #9C614D; /* アクセントカラー */
+}
+
+#reservation .coupon p {
+    font-size: 1.1em;
+}
+
+#reservation .reservation-form {
+    background-color: #F4F4F4;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+#reservation .reservation-form h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #3A4A55;
+}
+
+#reservation .reservation-form label {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+	display: block; /* ブロック要素にして縦に並べる */
+    width: 100%; /* 画面サイズに合わせて幅を100%に設定 */
+    margin-bottom: 10px; /* 各要素間の余白を追加 */
+}
+
+#reservation .reservation-form input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+	display: block; /* ブロック要素にして縦に並べる */
+    width: 100%; /* 画面サイズに合わせて幅を100%に設定 */
+    margin-bottom: 10px; /* 各要素間の余白を追加 */
+}
+
+#reservation .reservation-form button {
+    background-color: #3A4A55; /* アクセントカラー */
+    color: white;
+    padding: 15px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+	font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+}
+
+#reservation .reservation-form button:hover {
+    background-color: #3A4A55; /* ベースカラー */
+}
+
+/* 600px以下の設定 */
+@media screen and (max-width:600px) {
+	#reservation .info {
+		width: 80vw;
+	}
+}
+
+
+/*お知らせブロック---------------------------------------------------------------------------*/
+#info {
+	font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+}
+
+.new {
+	background: rgba(0,0,0,0.3);	/*背景色。0,0,0は黒のことで0.2は色が20%出た状態。*/
+	border-radius: 10px;			/*角を丸くする指定*/
+	overflow: hidden;
+	margin-bottom: 4rem;	/*ブロックの下に空けるスペース。4文字分。*/
+}
+
+/*奇数行目を背景色を少し濃くする。全体同じ色がよければここの数行は削除。*/
+.new dt:nth-of-type(odd),
+.new dd:nth-of-type(odd) {
+	background: rgba(0,0,0,0.2);	/*上のbackgroundより数値が低いが、重ねる事になるので、結果こちらの方が濃くなります。*/
+}
+
+/*日付(dt)設定*/
+.new dt {
+	padding: 1rem 1rem 0;	/*dt内の余白。上、左右、下への順番。*/
+}
+
+/*記事(dd)設定*/
+.new dd {
+	padding: 1rem;	/*dd内の余白*/
+}
+
+/*ブロック内のspan。日付の横のアイコン的な部分の共通設定*/
+.new dt span {
+	display: inline-block;
+	text-align: center;
+	line-height: 1.8;		/*行間（アイコンの高さ）*/
+	border-radius: 3px;		/*角を丸くする指定*/
+	padding: 0 0.5rem;		/*上下、左右へのブロック内の余白*/
+	width: 8rem;			/*幅。8文字分。*/
+	transform: scale(0.8);	/*80%のサイズに縮小*/
+	background: #fff;		/*背景色*/
+	color:#777;				/*文字色*/
+	border: 1px solid #999;	/*枠線の幅、線種、色*/
+}
+
+/*icon-bg1*/
+.new .icon-bg1 {
+	background: var(--primary-color);	/*背景色。css冒頭で指定しているprimary-colorを読み込みます*/
+	color: var(--primary-inverse-color);	/*文字色。css冒頭で指定しているprimary-inverse-colorを読み込みます*/
+	border-color: transparent;			/*枠線を出したくないので透明にする*/
+}
+
+	/*画面幅700px以上の追加指定*/
+	@media screen and (min-width:700px) {
+
+	/*ブロック全体*/
+	.new {
+		display: grid;	/*gridを使う指定*/
+		grid-template-columns: auto 1fr;	/*横並びの指定。日付とアイコン部分の幅は自動で、内容が入るブロックは残り幅一杯とる。*/
+	}
+
+	/*日付(dt)設定*/
+	.new dt {
+		padding: 1rem 0 1rem 2rem;	/*dt内の余白。上、右、下、左への順番。*/
+	}
+
+	/*記事(dd)設定*/
+	.new dd {
+		padding: 1rem 2rem 1rem 0;	/*dd内の余白。上、右、下、左への順番。*/
+	}
+
+	}/*追加指定ここまで*/
+
+
+/* 600px以下の設定 */
+@media screen and (max-width:600px) {
+	#info .flex_cancel {
+		margin: auto 10vw;
+	}
+}
+
+
+/*フッターメニュー
+---------------------------------------------------------------------------*/
+/*メニューブロック全体*/
+#footermenu {
+	margin: 0 !important;
+	padding: 20px;		/*ブロック内の余白*/
+	text-align: center;	/*テキストを中央に*/
+	font-size: 0.8rem;	/*文字サイズ。bodyのfont-sizeの80%です。*/
+}
+
+/*メニュー１個あたり*/
+#footermenu li {
+	display: inline-block;	/*簡易的に横並びにする*/
+	padding: 0 10px;		/*上下、左右への余白*/
+}
+
+
+/*フッター設定
+---------------------------------------------------------------------------*/
+#footer small {font-size: 100%;}
+#footer {
+	font-size: 0.7rem;		/*文字サイズ。bodyのfont-sizeの70%です。*/
+	text-align: center;		/*内容をセンタリング*/
+	padding: 20px;			/*ボックス内の余白*/
+	width: 100vw;
+}
+
+/*リンクテキスト*/
+#footer a {color: inherit;text-decoration: none;}
+
+/*著作部分*/
+#footer .pr {display: block;}
+
+
+
+/*フッター内にあるソーシャルメディアのアイコン
+---------------------------------------------------------------------------*/
+/*アイコンブロック全体*/
+ul.icons {
+	list-style: none;
+	margin: 0;padding: 0;
+	margin-bottom: 20px;	/*ブロックの下に空けるスペース*/
+	display: flex;	/*横並びにする*/
+	align-self: center;
+	justify-content: center;
+	gap: 1rem;	/*アイコン同士のマージン的なスペース。２文字分。*/
+}
+
+/*アイコン一個あたり*/
+.icons i {
+	font-size: 30px;	/*Font Awesomeのアイコンサイズ*/
+}
+
+
+/*PAGE TOP（↑）設定
+---------------------------------------------------------------------------*/
+.pagetop-show {display: block;}
+
+/*ボタンの設定*/
+.pagetop a {
+	display: block;text-decoration: none;text-align: center;z-index: 99;
+	position: fixed;	/*スクロールに追従しない(固定で表示)為の設定*/
+	right: 20px;		/*右からの配置場所指定*/
+	bottom: 20px;		/*下からの配置場所指定*/
+	color: #fff;		/*文字色*/
+	font-size: 1.5rem;	/*文字サイズ*/
+	background: rgba(0,0,0,0.2);	/*背景色。0,0,0は黒の事で0.2は色が20%出た状態。*/
+	width: 60px;		/*幅*/
+	line-height: 60px;	/*高さ*/
+	border-radius: 50%;	/*円形にする*/
+}
+
+
+
+/*メニューブロック初期設定---------------------------------------------------------------------------*/
+/* メニューブロック初期設定 */
+
+/* ハンバーガーボタンの配置 */
+.hamburger {
+    position: fixed; /* 画面に固定 */
+    top: 20px; /* 上からの距離 */
+    right: 20px; /* 右からの距離 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 1100; /* メニューより前面に */
+	background-color: #9C614D;
+	padding: 10px;
+}
+
+/* ハンバーガーアイコンのスタイル */
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ハンバーガーメニューがアクティブのとき */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg); /* 1本目のspanを45度回転 */
+    position: absolute; /* 絶対位置に変更 */
+    top: 10; /* 位置を合わせる */
+    left: 0; /* 左に配置 */
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0; /* 2本目のspanを透明に */
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg); /* 3本目のspanを-45度回転 */
+    position: absolute; /* 絶対位置に変更 */
+    bottom: -10; /* 位置を合わせる */
+    left: 0; /* 左に配置 */
+}
+
+
+/* メニューの配置 */
+.menu {
+    position: fixed; /* メニューも画面に固定 */
+    top: 0; /* ハンバーガーアイコンから少し下 */
+    right: 0; /* ハンバーガーアイコンに揃える */
+    list-style: none;
+	width: 100vw;
+	height: 100dvh;
+    margin: 0;
+    padding: 0;
+    display: none; /* 初期は非表示 */
+    flex-direction: column;
+    background-color: #3A4A55;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* メニュー項目 */
+.menu li a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu li a:hover {
+    background-color: #444;
+}
+
+/* ハンバーガーアクティブ時 */
+.menu.active {
+    display: flex; /* メニューを表示 */
+}
+
+
+.navbar .menu {
+	text-align: center;
+}
+
+.navbar .menu {
+	height: 100dvh;
+	width: 50vw;
+}
+
+/* 600px以下の設定 */
+@media screen and (max-width:600px) {
+	.navbar .menu {
+		height: 100dvh;
+		width: 100vw;
+	}
+}
+
+.navbar .menu li{
+	letter-spacing: 5px;
+	margin-top: 10dvh;
+	height: 5dvh;
+	font-family: 'Noto Serif JP', serif; /* 和モダンフォント */
+}
